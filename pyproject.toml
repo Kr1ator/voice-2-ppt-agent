@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voice-to-ppt-agent"
+version = "0.1.0"
+description = "A reproducible SURF project for speech-driven PowerPoint editing and evaluation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+keywords = ["speech", "asr", "powerpoint", "pptx", "agent", "research-software"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "lxml>=5.0",
+  "python-pptx>=0.6.23,<2",
+  "requests>=2.31",
+]
+
+[project.optional-dependencies]
+whisper = ["faster-whisper==1.2.1"]
+qwen = ["qwen-asr==0.0.6", "torch>=2.0"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+voice-ppt = "voice_ppt_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"

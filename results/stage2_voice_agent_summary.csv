@@ -1,0 +1,47 @@
+section,task_id,asr_id,round,metric,numerator,denominator,rate_percent,note
+aggregate,,,all,pptx_produced,168,176,95.5,all runs
+aggregate,,,all,edit_signal,135,176,76.7,all runs
+aggregate,,,all,rule_correct,73,112,65.2,id5 id20 id47 tested conditions
+aggregate,id31,,all,visual_pass,37,64,57.8,manual geometry audit
+aggregate,,,all,runs_with_retry,25,176,14.2,distinct runs with at least one automatic retry
+aggregate,,,all,retry_events,27,176,15.3,events per 176 runs; two runs retried twice
+first_round,id5,ASR-2,1,pptx_produced,16,16,100.0,
+first_round,id5,ASR-2,1,edit_signal,16,16,100.0,
+first_round,id5,ASR-2,1,rule_correct,16,16,100.0,
+first_round,id5,ASR-6,1,pptx_produced,16,16,100.0,
+first_round,id5,ASR-6,1,edit_signal,16,16,100.0,
+first_round,id5,ASR-6,1,rule_correct,16,16,100.0,
+first_round,id20,ASR-2,1,pptx_produced,16,16,100.0,
+first_round,id20,ASR-2,1,edit_signal,13,16,81.3,
+first_round,id20,ASR-2,1,rule_correct,2,16,12.5,
+first_round,id20,ASR-6,1,pptx_produced,16,16,100.0,
+first_round,id20,ASR-6,1,edit_signal,16,16,100.0,
+first_round,id20,ASR-6,1,rule_correct,7,16,43.8,
+first_round,id31,ASR-2,1,pptx_produced,14,16,87.5,
+first_round,id31,ASR-2,1,edit_signal,8,16,50.0,
+first_round,id31,ASR-2,1,visual_pass,10,16,62.5,
+first_round,id31,ASR-6,1,pptx_produced,15,16,93.8,
+first_round,id31,ASR-6,1,edit_signal,12,16,75.0,
+first_round,id31,ASR-6,1,visual_pass,10,16,62.5,
+first_round,id47,ASR-2,1,pptx_produced,15,16,93.8,
+first_round,id47,ASR-2,1,edit_signal,15,16,93.8,
+first_round,id47,ASR-2,1,rule_correct,14,16,87.5,
+first_round,id47,ASR-6,1,pptx_produced,16,16,100.0,
+first_round,id47,ASR-6,1,edit_signal,16,16,100.0,
+first_round,id47,ASR-6,1,rule_correct,15,16,93.8,
+loop_followup,id20,ASR-2,2,pptx_produced,16,16,100.0,
+loop_followup,id20,ASR-2,2,edit_signal,9,16,56.3,
+loop_followup,id20,ASR-2,2,rule_correct,3,16,18.8,
+loop_followup,id20,ASR-2,2,retry_events,6,16,37.5,six events across five distinct runs
+loop_followup,id31,ASR-2,2,pptx_produced,15,16,93.8,
+loop_followup,id31,ASR-2,2,edit_signal,10,16,62.5,
+loop_followup,id31,ASR-2,2,visual_pass,8,16,50.0,
+loop_followup,id31,ASR-6,2,pptx_produced,13,16,81.3,
+loop_followup,id31,ASR-6,2,edit_signal,4,16,25.0,
+loop_followup,id31,ASR-6,2,visual_pass,9,16,56.3,
+failure,id31,,all,missing_output,7,64,10.9,all seven missing task outputs were id31 runs
+failure,id47,,all,final_generated_code_failure,1,32,3.1,the remaining missing output was an id47 code failure
+failure,,,all,pptx_without_edit_signal,33,168,19.6,readable outputs whose final log reported Slides edited equals zero
+failure,,,all,runs_with_script_error,24,176,13.6,distinct runs containing at least one generated-script error
+failure,,,all,script_error_events,26,176,14.8,events per 176 runs; two runs contained two script errors
+failure,id20,ASR-2,all,critical_slot_failure,26,32,81.3,both 32 and pt absent in 26 reused-transcript conditions

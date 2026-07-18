@@ -1,0 +1,64 @@
+{
+  "artifact_version": "0.1.0",
+  "project": "Voice-to-PPT Agent",
+  "study_date": "2026-07",
+  "tasks": [
+    {
+      "task_id": "id5",
+      "short_name": "typo_correction",
+      "instruction_summary": "Review all text elements for spelling and grammar errors and correct them.",
+      "critical_slots": ["all text elements", "correct errors"],
+      "evaluation": "deterministic_rule"
+    },
+    {
+      "task_id": "id20",
+      "short_name": "font_size_32pt",
+      "instruction_summary": "Change the specified text formatting to 32 pt.",
+      "critical_slots": ["32", "pt"],
+      "evaluation": "deterministic_rule"
+    },
+    {
+      "task_id": "id31",
+      "short_name": "horizontal_image_centering",
+      "instruction_summary": "Centre the target images horizontally.",
+      "critical_slots": ["images", "horizontally", "centre"],
+      "evaluation": "manual_visual_geometry"
+    },
+    {
+      "task_id": "id47",
+      "short_name": "slide_numbering_bottom_right",
+      "instruction_summary": "Insert slide numbering in the bottom-right corner.",
+      "critical_slots": ["slide numbering", "bottom-right"],
+      "evaluation": "deterministic_rule"
+    }
+  ],
+  "design": {
+    "first_round": {
+      "spoken_variants": ["clean", "spoken", "connected", "self_repair"],
+      "acoustic_conditions": ["none", "noise", "reverb", "bandlimit"],
+      "asr_systems": ["ASR-2", "ASR-6"],
+      "runs": 128
+    },
+    "targeted_loop_followups": [
+      {"asr": "ASR-2", "task": "id20", "round": 2, "runs": 16},
+      {"asr": "ASR-2", "task": "id31", "round": 2, "runs": 16},
+      {"asr": "ASR-6", "task": "id31", "round": 2, "runs": 16}
+    ],
+    "total_runs": 176
+  },
+  "systems": {
+    "ASR-2": {"family": "faster-whisper", "model": "large-v3-turbo"},
+    "ASR-6": {"family": "Qwen3-ASR", "model": "Qwen/Qwen3-ASR-1.7B"},
+    "editor": {
+      "upstream": "PPTArena/PPTPilot",
+      "interface": "OpenAI-compatible chat completions",
+      "editor_model_alias": "deepseek-v4-pro",
+      "planner_model_alias": "deepseek-v4-flash",
+      "immutable_revision_recorded": false
+    }
+  },
+  "result_files": {
+    "runs": "../results/stage2_voice_agent_runs.csv",
+    "summary": "../results/stage2_voice_agent_summary.csv"
+  }
+}

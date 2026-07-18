@@ -1,0 +1,36 @@
+case,interface,rounds,model,prompt,chatgpt_evaluation_zh,gemini_evaluation_zh
+Case 2: FixMisspellings,GUI,1,GPT-4o,Proofread the entire presentation and correct any spelling errors you find.,"评分：8/10分
+评分简述：拼写错误基本都修正了，标题和正文里的错误如 Businesses、successes、programs、safety、hazards、sustainability、energize、valuable、encouraged、communicate、ongoing、sources、illnesses、Customize、presentation 等都改对了，任务主体完成得很好。但修改后第6页、第7页把原本不是项目符号的正文和 “What we can do:” 前面也加上了项目符号，属于多改并破坏了部分排版；第1页 logo 提示文字也出现了轻微换行变化。整体内容正确性高，但格式保持不够干净。","评分：5/10分
+Agent成功找出了原文件中的所有拼写错误并进行了正确修改（如将Buisneses改为Businesses，suceses改为successes，hazaards改为hazards等），核心纠错任务完成得很好。但存在严重的“多改”和破坏排版问题，它擅自删除了每一页原有的页眉、页脚标语以及网址链接（如SAFE + SOUND WEEK标志和osha.gov链接），完全打乱了文档的原始布局内容，未能保持原文档的结构完整性。"
+Case 14BoldTitle(A),GUI,1,Gemini 2.5 Pro,"Make the title on every slide bold, except for the main title slide (slide 1).","评分：9/10分
+评分简述：整体完成得很好，除第1页主标题页外，大部分幻灯片标题都成功加粗，且没有明显破坏原有图表、正文和排版。主要问题是有一页标题仍然没有加粗，存在少量漏改；除此之外没有明显多改或乱改，和GT基本接近。","评分：3/10分
+评分简述
+Agent 虽然执行了针对标题的修改，但付出了惨痛的排版代价，出现了严重的多改和破坏性修改。首先，它在处理文本时丢失了原有的换行符，导致多行标题出现单词粘连（如原本分行的文字被合并成了“gamesand”），甚至将某些页面的标题和副标题粗暴地拼接在了同一行。其次，它在未被要求的情况下，破坏了原本正常的数学公式和上下标排版，原文件中的 $P_{1}$ 和 $P=\frac{1}{3}$ 等变量符号在修改后丢失了格式，变成了奇怪的 Unicode 字符（如𝑷𝟏、𝑷=𝟏𝟑）。整体而言，核心任务虽然触发了，但完全破坏了原文档的布局和内容严谨性。"
+Case 23: Add Thank You Slide,GUI,2,GPT-4o,Add a new slide at the very end with the title 'Thank you'.,"评分：P：9/10分；P2：7/10分
+评分简述：P 基本完成了任务，在原始 14 页最后新增了一页 “Thank you”，位置正确，没有明显破坏前面页面的内容和排版，和 GT 很接近。P2 在此基础上又多加了一页 “Thank you”，导致结尾出现重复感谢页，属于多改；虽然原任务也完成了，但因为新增了不必要的重复页面，最终效果反而比 P 差。","评分：7/10分
+Agent 在第一轮修改（P）中准确地完成了核心任务，成功在幻灯片末尾添加了标题为“Thank you”的新页面，且没有破坏原文档的其他内容和排版。但在第二轮修改（P2）中，Agent 出现了重复执行操作的失误，导致结尾处生成了多余的“Thank you”文本（重复添加了幻灯片或标题内容）。任务基本完成，但存在画蛇添足的多余修改。"
+Case 25: Match Table Theme and Colors,GUI,2,Gemini 2.5 Pro,"The table on this slide looks out of place. Please reformat it to match the presentation's color scheme, using a style with a dark header and alternating row color","评分：P：4/10分；P2：4/10分
+评分简述：P 和 P2 基本一样，确实把原来突兀的亮黄色表格改掉了，颜色也稍微靠近了演示文稿的绿色系；但没有真正做出 GT 那种“深色表头 + 交替行底色”的完整表格样式。表头背景缺失，只剩文字悬在表格上方，Q2/Q4 行几乎变成透明且黑字对比度很差，整体表格结构被破坏，视觉效果不够清晰。P2 没有明显进一步改好，因此分数不提升。","评分：10/10分
+评分简述
+Agent 很好地执行了要求。在修改表格样式的过程中，完美保留了所有的核心财务数据（Q1到Q4的收入、支出和净利润数值均准确无误），没有出现数据丢失、错位或“画蛇添足”的多余修改。虽然受限于文本内容无法直接确认深色表头和交替行色的最终视觉效果，但从底层结构来看，表格内容清晰完整，没有对当前页面的其他排版造成任何破坏，任务完成得非常利落。"
+Case 31: Fix Text Overflow,CLI,2,GPT-4o,The main text box on this slide is too wide and goes off the right side of the screen.,"评分：P：8/10分；P2：5/10分
+评分简述：P 基本完成了任务，主文本框从原本超出右侧屏幕改成了正常换行，文字完整可见，整体排版也没有明显破坏，只是和 GT 相比文本框略偏宽/偏下，行距和视觉平衡稍差。P2 虽然也解决了右侧溢出问题，但文本框被压得太窄，导致文字纵向过长，底部内容接近或超出页面，形成新的溢出风险，整体效果反而不如 P。","评分：0/10分
+评分简述
+Agent 完全未能完成核心任务，没有解决文本框太宽导致文字溢出屏幕的问题。对比修改后的文件和原始文件，文本内容、换行情况以及底层的排版结构均没有任何实质性改变，Agent 并没有成功调整文本框的边界宽度。任务执行彻底失败。"
+Case 55: Highlight Important Words,CLI,1,Gemini 2.5 Pro,"Please resize it so it fits entirely on the slide, making sure all the text is still visible.","评分：4/10分
+评分简述：P 中所有文字确实仍然可见，没有明显被裁切或跑出页面，但它并没有真正针对“resize 使其完整适配页面”做出有效调整，文本框位置和宽度基本没有变化。更明显的问题是它额外把多处文字加粗/改成青绿色，属于和任务无关的多余修改，而且高亮内容也和 GT 不一致。整体没有严重破坏排版，但核心 resize 任务完成度较低。","评分：0/10分
+Agent 完全未能完成任务。对比原始文件（O）和修改后的文件（P），无论是针对提示词要求的“调整文本框大小使其完全适合幻灯片”，还是根据文件名暗示的“高亮重要词汇（Highlight Important Words）”任务，Agent 均未做出任何实质性的格式或排版修改。文本内容及底层结构与原文件完全一致，没有解决任何问题，任务执行彻底失败。"
+Case 58: Bullets Normalize Levels,CLI,2,GPT-4o,"In the main text box, simplify the bulleted list so it only has two indentation levels.All sub-points should be at the second level.","评分：P：10/10分；P2：10/10分
+评分简述：P 和 P2 都完成得很好，主文本框中的项目符号层级被正确简化为两级：Project Alpha / Beta / Theta 保持第一级，所有子项都统一调整到第二级，没有再保留第三、第四、第五级缩进。文字内容没有丢失，也没有明显破坏标题、文本框位置或整体排版，和 GT 基本一致。","评分：0/10分
+Agent 完全未能完成核心任务。对比原始文件（O）和修改后的文件（P / P2），文本的缩进格式和列表层级没有任何实质性的改变。Agent 并没有成功将所有子要点统一调整为第二层级（即只有两个缩进级别）。虽然没有破坏原有的文本内容，但未能解决要求中的任何排版问题，任务执行彻底失败。"
+Case 62: Z Order,CLI,1,Gemini 2.5 Pro,Bring the picture and the oval shape to the front so they are visible on top of the large rectangle.,"评分：2/10分
+评分简述：任务基本没有完成，P 中大矩形仍然遮挡住了图片和椭圆形，二者没有被成功置于前景，和 GT 相比差距明显。好在除这个核心问题外，没有看到额外乱改标题或其他版式内容，但由于 z-order 没有修正，主要要求未达成，所以分数较低。","评分：3/10分
+Agent未能完成调整图层顺序的核心任务。
+对比原始文件（O）和修改后的文件（P），图片和椭圆形状的Z-order（层级顺序）没有任何改变，依然处于背景矩形之下。虽然没有破坏原有内容，但排版问题完全未得到解决，任务执行失败。"
+Case 3: Add Footer Text Box,CLI,2,Gpt-4o,"On slide 5, add a source citation at the bottom that says 'Source: www.VerifyMe.com'.","评分：4/10分
+评分简述：虽然在第5页添加了正确的文字 “Source: www.VerifyMe.com”，位置也算是在底部附近，但修改结果明显破坏了原本第5页的内容：原来的 “Strategic Snapshot” 页面主体内容被删掉/覆盖，只剩来源引用，属于严重多改。任务只要求在第5页底部新增 citation，不应该改变或删除原有页面内容，因此只能给较低分。","评分：2/10分
+Agent 未能按照要求完成任务，且严重破坏了原文档结构。首先，它删除了原始文档中真正的第5页（Strategic Snapshot），导致核心内容丢失；其次，要求的引用文字“Source: www.VerifyMe.com”被错误地添加在了页面的顶部，而不是要求的底部；最后，由于前一页被删除，该引用实际出现在了错误的页面内容（原第6页）上。任务基本完全失败并产生了严重的排版副作用。"
+Case 29: Convert Bar Chart to Pie Chart,CLI,1,Gemini 2.5 Pro,"On slide 3, change the column chart to a pie chart.","评分：2/10分
+评分简述：核心任务基本没有完成，slide 3 原本的柱状图并没有真正变成饼图，和 GT 的效果不一致。虽然文件里似乎有尝试生成饼图相关内容，但实际可见页面仍然是原来的 column chart，属于修改没有生效。好在没有明显破坏其他页面或大幅改乱排版，但因为主要要求未完成，只能给较低分。","评分：0/10分
+评分简述
+Agent 完全未能完成核心任务。对比修改后的文件与原始文件，第三页（Slide 3）的图表类型没有任何改变，依然是原始的柱状图（Column Chart），Agent 并没有成功将其转换为饼图（Pie Chart）。并且，因为没有进行有效修改，原有的排版倒是没有被破坏，但任务执行彻底失败。"

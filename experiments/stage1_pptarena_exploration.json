@@ -1,0 +1,22 @@
+{
+  "artifact_version": "0.1.0",
+  "study": "PPTArena dataset GUI/CLI exploratory cases",
+  "study_date": "2026-06",
+  "source": {
+    "dataset": "PPTArena",
+    "selection": "10 exploratory task cases selected from the PPTArena dataset"
+  },
+  "design": {
+    "type": "exploratory_case_study",
+    "cases": 10,
+    "gui_cases": 4,
+    "cli_cases": 6,
+    "paired_gui_cli_comparison": false
+  },
+  "evaluation": {
+    "judges": ["ChatGPT", "Gemini"],
+    "scale": "0-10 with qualitative comments",
+    "interpretation": "Different tasks, models, interfaces, and round counts were used; results are formative rather than a controlled benchmark."
+  },
+  "result_file": "../results/stage1_pptarena_exploration.csv"
+}
