@@ -1,10 +1,10 @@
-# Voice-2-PPT Agent：语音驱动的 PowerPoint 编辑与可靠性评估
+# Voice-to-PPT Agent：语音驱动的 PowerPoint 编辑与可靠性评估
 
 [English](README_EN.md) | 中文
 
-Voice-to-PPT Agent 是一个面向真实 PowerPoint 编辑任务的研究项目。它将自动语音识别（ASR）接入 PPTArena/PPTPilot 的幻灯片编辑流程，并通过规则、几何和视觉检查判断输出是否真正满足指令，而不只检查是否生成了 PPTX 文件。
+Voice-to-PPT Agent 是一个围绕“语音指令能否被可靠地转化为真实 PowerPoint 编辑”展开的 SURF 暑期研究项目。本项目以 **PPTArena 基准发布的 PPTPilot 幻灯片编辑 Agent** 为执行基础，在其上完成本地环境适配、命令行重构、双 ASR 接入、模型接口改造和分层结果核验。
 
-项目从论文代码复现开始，依次完成了本地环境适配、GUI 验证、CLI 重构、双 ASR 接入、DeepSeek 兼容接口适配和两阶段实验。`run.py` 是最终端到端流程的主要入口。
+这里，PPTArena 是用于评测真实 PowerPoint 编辑的基准，PPTPilot 是随该基准提出的编辑 Agent。项目关注的不只是系统能否生成 PPTX，而是语音信息、对象定位、编辑执行和输出验证如何共同影响最终正确性。整个工作从论文代码复现开始，依次经历 GUI 验证、CLI 重构、双 ASR 接入、DeepSeek 兼容接口适配和两阶段实验；`run.py` 保留为 SURF 实验期间实际使用的端到端主入口。
 
 完整的方法、结果与失败分析见中英文实验报告：
 
@@ -19,6 +19,18 @@ Voice-to-PPT Agent 是一个面向真实 PowerPoint 编辑任务的研究项目�
 - 适配 DeepSeek 兼容端点，将规划与编辑模型切换到更适合批量实验的配置；
 - 建立“文件可读—编辑信号—确定性规则—几何与视觉核验”的分层评价方法；
 - 整理 10 个 PPTArena 探索案例，以及 128 次首轮实验和 48 次定向二轮实验的结构化证据。
+
+上游工作、数据团队贡献与本人工作之间的详细边界见[项目贡献与来源说明](CONTRIBUTIONS.md)。
+
+## 真实实验示例：为什么必须核验最终结果
+
+`id31` 要求将三张图片水平居中排列。两个输出都保留了三张嵌入图片，也都生成了可读取的 PPTX，但几何检查和页面渲染显示它们的任务完成情况完全不同：
+
+| 图片重叠：任务失败 | 无重叠且水平对称：任务通过 |
+|---|---|
+| ![id31 图片重叠失败输出](reports/source/id31_layout_overlap.png) | ![id31 水平布局通过输出](reports/source/id31_layout_pass.png) |
+
+这组真实输出说明：“生成文件”和“日志显示发生编辑”只能证明流程运行过，不能单独证明编辑正确。项目因此将文件检查、任务规则、对象几何和渲染后视觉检查分层记录。
 
 ## 系统流程
 
@@ -69,7 +81,16 @@ flowchart LR
 
 ## 安装与配置
 
-项目要求 Python 3.10 或更高版本。按需要安装相应的 ASR 依赖：
+项目要求 Python 3.10 或更高版本。先确认当前解释器版本并创建独立环境：
+
+```bash
+python3 --version
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+```
+
+如果第一行显示 Python 3.9 或更低版本，请先安装 Python 3.10+；本项目的 GitHub Actions 使用 Python 3.11。随后按需要安装相应的 ASR 依赖：
 
 ```bash
 python -m pip install -e ".[whisper]"
@@ -113,7 +134,7 @@ python run.py \
 
 生成的 Python 代码会以当前用户权限运行，并不处于安全沙箱中。请只在隔离环境中处理可信输入。
 
-安装项目后，还可以使用 `voice-ppt` 执行文本编辑、PPTX 结构检查、实验计划展开和结果验证；这些命令是 `run.py` 主流程的辅助工具。
+`run.py` 是原始 SURF 实验使用并写入报告的主入口。仓库整理阶段另外增加了 `voice-ppt` 命令，用于文本编辑、PPTX 结构检查、实验计划展开和结果验证；它是面向复核与复现的辅助入口，不改变报告所记录的实验流程。
 
 ## 复核实验材料
 
@@ -139,6 +160,7 @@ python -m pytest
 
 ```text
 run.py                         主要入口：语音 + PPTX → 转写 + 编辑结果
+CONTRIBUTIONS.md               上游来源、团队材料与本人贡献边界
 src/voice_ppt_agent/           ASR、LLM、PPTX 编辑和命令行实现
 experiments/                   机器可读实验设计
 results/                       逐次结果和汇总统计
